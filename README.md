@@ -16,7 +16,7 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-        implementation 'com.github.D10NGYANG:DLGpsUtil:1.0'
+        implementation 'com.github.D10NGYANG:DLGpsUtil:1.1'
         // 如果需要高德定位
         implementation 'com.amap.api:location:latest.integration'
 }
@@ -43,6 +43,42 @@ dependencies {
 -keep class com.alibaba.mit.alitts.**{*;}
 -keep class com.google.**{*;}
 -keep class com.nlspeech.nlscodec.** {*;}
+
+# Retrofit2
+-keepattributes Signature, InnerClasses, EnclosingMethod
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn javax.annotation.**
+-dontwarn kotlin.Unit
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
+
+# retrofit回复处理
+-keep class com.dlong.dl10retrofitcoroutineslib.** {*;}
+-dontwarn com.dlong.dl10retrofitcoroutineslib.**
+
+# Moshiss
+-dontwarn javax.annotation.**
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+-keep @com.squareup.moshi.JsonQualifier interface *
+-keepclassmembers @com.squareup.moshi.JsonClass class * extends java.lang.Enum {
+    <fields>;
+    **[] values();
+}
+-keepclassmembers class com.squareup.moshi.internal.Util {
+    private static java.lang.String getKotlinMetadataClassName();
+}
+
+# moshi拓展工具
+-keep class com.d10ng.moshilib.** {*;}
+-dontwarn com.d10ng.moshilib.**
 ```
 
 4 高德接入

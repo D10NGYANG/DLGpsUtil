@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -50,6 +50,21 @@ dependencies {
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3-native-mt'
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+    // retrofit回复处理
+    implementation 'com.github.D10NGYANG:DL10RetrofitCoroutines:1.2'
+
+    // moshi
+    implementation('com.squareup.moshi:moshi-kotlin:1.12.0')
+    kapt('com.squareup.moshi:moshi-kotlin-codegen:1.12.0')
+    kaptTest 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
+    // moshi拓展工具
+    implementation 'com.github.D10NGYANG:DLMoshiUtil:1.0'
 
     // 高德定位
     implementation 'com.amap.api:location:latest.integration'
