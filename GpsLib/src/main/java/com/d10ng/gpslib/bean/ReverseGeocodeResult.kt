@@ -44,7 +44,7 @@ data class ReverseGeocodeResult(
             var province: String = "",
 
             // 坐标点所在城市名称
-            @Json(name = "city")
+            @Transient
             var city: String = "",
 
             // 城市编码

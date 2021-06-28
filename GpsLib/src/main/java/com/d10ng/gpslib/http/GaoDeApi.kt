@@ -1,7 +1,13 @@
 package com.d10ng.gpslib.http
 
+import com.d10ng.gpslib.bean.DLatLng
 import com.d10ng.gpslib.bean.ReverseGeocodeResult
+import com.d10ng.gpslib.constant.CoordinateSystemType
+import com.d10ng.gpslib.convert
+import com.d10ng.moshilib.toMoshiBean
+import com.d10ng.stringlib.toDString
 import com.dlong.dl10retrofitcoroutineslib.DLResponse
+import org.json.JSONObject
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,5 +36,42 @@ interface GaoDeApi {
         @Query("extensions") extensions: String = "base",
         @Query("batch") batch: String = "false",
         @Query("output") output: String = "JSON"
-    ): DLResponse<ReverseGeocodeResult>
+    ): DLResponse<String>
+}
+
+/**
+ * 逆地理编码
+ * @receiver GaoDeApi
+ * @param lat Double
+ * @param lng Double
+ * @param type CoordinateSystemType
+ * @param key String
+ * @return ReverseGeocodeResult
+ */
+suspend fun GaoDeApi.getLocationFromLatLng(
+    lat: Double,
+    lng: Double,
+    type: CoordinateSystemType,
+    key: String
+): ReverseGeocodeResult {
+    val dLatLng = if (type == CoordinateSystemType.GCJ02)
+        DLatLng(lat, lng)
+    else
+        DLatLng(lat, lng).convert(type, CoordinateSystemType.GCJ02)
+    val result = reverseGeocode(
+        "${dLatLng.longitude.toDString(6)},${dLatLng.latitude.toDString(6)}",
+        key
+    ).body
+    return try {
+        val json = JSONObject(result)
+        json.toMoshiBean(ReverseGeocodeResult::class.java).apply {
+            val cityJson = json.optJSONObject("regeocode")?.optJSONObject("addressComponent")?.opt("city")
+            if (cityJson is String) {
+                this.regeocode?.addressComponent?.city = cityJson
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        ReverseGeocodeResult()
+    }
 }
