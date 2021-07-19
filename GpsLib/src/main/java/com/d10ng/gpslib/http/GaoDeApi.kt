@@ -1,9 +1,9 @@
 package com.d10ng.gpslib.http
 
-import com.d10ng.gpslib.bean.DLatLng
 import com.d10ng.gpslib.bean.ReverseGeocodeResult
-import com.d10ng.gpslib.constant.CoordinateSystemType
-import com.d10ng.gpslib.convert
+import com.d10ng.latlnglib.bean.DLatLng
+import com.d10ng.latlnglib.constant.CoordinateSystemType
+import com.d10ng.latlnglib.convert
 import com.d10ng.moshilib.toMoshiBean
 import com.d10ng.stringlib.toDString
 import com.dlong.dl10retrofitcoroutineslib.DLResponse

@@ -2,7 +2,7 @@ package com.d10ng.gpslib
 
 import com.amap.api.location.CoordinateConverter
 import com.amap.api.location.DPoint
-import com.d10ng.gpslib.bean.DLatLng
+import com.d10ng.latlnglib.bean.DLatLng
 
 /**
  * 计算两个点之间的距离

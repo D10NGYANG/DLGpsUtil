@@ -16,9 +16,11 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-        implementation 'com.github.D10NGYANG:DLGpsUtil:1.3'
-        // 如果需要高德定位
-        implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.github.D10NGYANG:DLGpsUtil:1.4'
+    // 经纬度工具
+    implementation 'com.github.D10NGYANG:DLLatLngUtil:1.0'
+    // 如果需要高德定位
+    implementation 'com.amap.api:location:latest.integration'
 }
 ```
 3 混淆
@@ -79,6 +81,10 @@ dependencies {
 # moshi拓展工具
 -keep class com.d10ng.moshilib.** {*;}
 -dontwarn com.d10ng.moshilib.**
+
+# 经纬度工具
+-keep class com.d10ng.latlnglib.** {*;}
+-dontwarn com.d10ng.latlnglib.**
 ```
 
 4 高德接入

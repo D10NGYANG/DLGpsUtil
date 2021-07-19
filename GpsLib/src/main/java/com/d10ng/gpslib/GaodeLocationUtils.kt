@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
-import com.d10ng.gpslib.bean.DLatLng
-import com.d10ng.gpslib.constant.CoordinateSystemType
+import com.d10ng.latlnglib.bean.DLatLng
+import com.d10ng.latlnglib.constant.CoordinateSystemType
+import com.d10ng.latlnglib.convert
 
 /**
  * 高德定位工具
