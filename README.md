@@ -16,7 +16,9 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-    implementation 'com.github.D10NGYANG:DLGpsUtil:1.4'
+    implementation 'com.github.D10NGYANG:DLGpsUtil:1.5'
+    // 字符串字节数据工具
+    implementation 'com.github.D10NGYANG:DLStringUtil:1.7'
     // 经纬度工具
     implementation 'com.github.D10NGYANG:DLLatLngUtil:1.0'
     // 如果需要高德定位

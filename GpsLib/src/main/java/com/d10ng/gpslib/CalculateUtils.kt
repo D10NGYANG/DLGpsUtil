@@ -15,5 +15,5 @@ fun DLatLng.distanceTo(other: DLatLng): Float {
     return CoordinateConverter.calculateLineDistance(
         DPoint(latitude, longitude),
         DPoint(other.latitude, other.longitude)
-    ) / 10
+    )
 }
