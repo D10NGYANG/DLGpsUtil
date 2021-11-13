@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -48,8 +48,8 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-common-java8:2.3.1"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -57,19 +57,19 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
     // retrofit回复处理
-    implementation 'com.github.D10NGYANG:DL10RetrofitCoroutines:1.2'
+    implementation 'com.github.D10NGYANG:DL10RetrofitCoroutines:1.4'
 
     // moshi
     implementation('com.squareup.moshi:moshi-kotlin:1.12.0')
     kapt('com.squareup.moshi:moshi-kotlin-codegen:1.12.0')
     kaptTest 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
     // moshi拓展工具
-    implementation 'com.github.D10NGYANG:DLMoshiUtil:1.0'
+    implementation 'com.github.D10NGYANG:DLMoshiUtil:1.2'
 
     // 字符串字节数据工具
-    implementation 'com.github.D10NGYANG:DLStringUtil:1.7'
+    implementation 'com.github.D10NGYANG:DLStringUtil:1.12'
     // 经纬度工具
-    implementation 'com.github.D10NGYANG:DLLatLngUtil:1.0'
+    implementation 'com.github.D10NGYANG:DLLatLngUtil:1.1'
     // 高德定位
     implementation 'com.amap.api:location:latest.integration'
 }

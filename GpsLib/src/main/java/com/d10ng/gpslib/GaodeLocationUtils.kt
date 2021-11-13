@@ -18,7 +18,7 @@ class GaodeLocationUtils(context: Context) {
 
     val locationLive: MutableLiveData<AMapLocation?> = MutableLiveData(null)
 
-    private var locationClient: AMapLocationClient = AMapLocationClient(context)
+    private lateinit var locationClient: AMapLocationClient
 
     companion object {
 
@@ -41,6 +41,13 @@ class GaodeLocationUtils(context: Context) {
     }
 
     init {
+        AMapLocationClient.updatePrivacyShow(context, true, true)
+        AMapLocationClient.updatePrivacyAgree(context, true)
+        try {
+            locationClient = AMapLocationClient(context)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         val mLocationOption = AMapLocationClientOption().apply {
             this.locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
             interval = 2000
