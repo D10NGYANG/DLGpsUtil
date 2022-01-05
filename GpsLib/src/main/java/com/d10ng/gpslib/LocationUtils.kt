@@ -3,6 +3,7 @@ package com.d10ng.gpslib
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Criteria
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -17,25 +18,6 @@ import androidx.lifecycle.MutableLiveData
 class ALocationListener : LocationListener {
 
     val locationLive: MutableLiveData<Location?> = MutableLiveData(null)
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: ALocationListener? = null
-
-        @JvmStatic
-        fun instant(): ALocationListener =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: ALocationListener().also {
-                    INSTANCE = it
-                }
-            }
-
-        @JvmStatic
-        fun destroy() {
-            INSTANCE = null
-        }
-    }
 
     override fun onLocationChanged(location: Location) {
         // 位置改变
@@ -53,7 +35,8 @@ class ALocationListener : LocationListener {
  * @return MutableLiveData<Location?>?
  */
 fun Context.startRequestLocation(
-    provider: String = LocationManager.GPS_PROVIDER,
+    listener: ALocationListener,
+    provider: String = getBestLocationProvider()?: LocationManager.GPS_PROVIDER,
     minTimeMs: Long = 1000,
     minDistanceM: Float = 1f
 ): MutableLiveData<Location?>? {
@@ -72,16 +55,44 @@ fun Context.startRequestLocation(
         provider,
         minTimeMs,
         minDistanceM,
-        ALocationListener.instant()
+        listener
     )
-    return ALocationListener.instant().locationLive
+    return listener.locationLive
+}
+
+/**
+ * 获取最好的位置提供器
+ * @receiver Context
+ * @param accuracy Int
+ * @param isAltitudeRequired Boolean
+ * @param isBearingRequired Boolean
+ * @param isCostAllowed Boolean
+ * @param powerRequirement Int
+ * @return String?
+ */
+fun Context.getBestLocationProvider(
+    accuracy: Int = Criteria.ACCURACY_FINE,
+    isAltitudeRequired: Boolean = true,
+    isBearingRequired: Boolean = false,
+    isCostAllowed: Boolean = false,
+    powerRequirement: Int = Criteria.POWER_LOW
+): String? {
+    val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+    val criteria = Criteria().apply {
+        this.accuracy = accuracy
+        this.isAltitudeRequired = isAltitudeRequired
+        this.isBearingRequired = isBearingRequired
+        this.isCostAllowed = isCostAllowed
+        this.powerRequirement = powerRequirement
+    }
+    return locationManager?.getBestProvider(criteria, true)
 }
 
 /**
  * 取消定位请求
  * @receiver Context
  */
-fun Context.stopRequestLocation() {
+fun Context.stopRequestLocation(listener: ALocationListener) {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-    locationManager?.removeUpdates(ALocationListener.instant())
+    locationManager?.removeUpdates(listener)
 }

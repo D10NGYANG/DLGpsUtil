@@ -5,7 +5,7 @@ import com.d10ng.latlnglib.bean.DLatLng
 import com.d10ng.latlnglib.constant.CoordinateSystemType
 import com.d10ng.latlnglib.convert
 import com.d10ng.moshilib.toMoshiBean
-import com.d10ng.stringlib.toDString
+import com.d10ng.text.string.toDString
 import com.dlong.dl10retrofitcoroutineslib.DLResponse
 import org.json.JSONObject
 import retrofit2.http.GET
