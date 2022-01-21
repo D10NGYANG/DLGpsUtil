@@ -16,7 +16,7 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-    implementation 'com.github.D10NGYANG:DLGpsUtil:1.7'
+    implementation 'com.github.D10NGYANG:DLGpsUtil:1.9'
     // 如果需要高德定位
     implementation 'com.amap.api:location:latest.integration'
 }
