@@ -1,13 +1,13 @@
 package com.d10ng.gpslib
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.d10ng.latlnglib.bean.DLatLng
 import com.d10ng.latlnglib.constant.CoordinateSystemType
 import com.d10ng.latlnglib.convert
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * 高德定位工具
@@ -16,7 +16,7 @@ import com.d10ng.latlnglib.convert
  */
 class GaodeLocationUtils(context: Context) {
 
-    val locationLive: MutableLiveData<AMapLocation?> = MutableLiveData(null)
+    val locationLive: MutableStateFlow<AMapLocation?> = MutableStateFlow(null)
 
     private lateinit var locationClient: AMapLocationClient
 
@@ -62,7 +62,7 @@ class GaodeLocationUtils(context: Context) {
                 this.latitude = latlng.latitude
                 this.longitude = latlng.longitude
             }
-            locationLive.postValue(map)
+            locationLive.tryEmit(map)
         }
     }
 

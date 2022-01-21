@@ -8,7 +8,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * 定位监听器
@@ -17,12 +18,12 @@ import androidx.lifecycle.MutableLiveData
  */
 class ALocationListener : LocationListener {
 
-    val locationLive: MutableLiveData<Location?> = MutableLiveData(null)
+    val locationLive: MutableStateFlow<Location?> = MutableStateFlow(null)
 
     override fun onLocationChanged(location: Location) {
         // 位置改变
         // 得到的是WGS84格式的定位数据
-        locationLive.postValue(location)
+        locationLive.tryEmit(location)
     }
 }
 
@@ -39,7 +40,7 @@ fun Context.startRequestLocation(
     provider: String = getBestLocationProvider()?: LocationManager.GPS_PROVIDER,
     minTimeMs: Long = 1000,
     minDistanceM: Float = 1f
-): MutableLiveData<Location?>? {
+): StateFlow<Location?>? {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
     if (ActivityCompat.checkSelfPermission(
             this,

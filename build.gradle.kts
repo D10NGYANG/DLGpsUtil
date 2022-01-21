@@ -6,8 +6,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath(Android.classpath_gradle)
-        classpath(Kotlin.classpath_gradle)
+        classpath(Android.Classpath.gradle)
+        classpath(Kotlin.Classpath.gradle)
     }
 }
 
@@ -16,7 +16,7 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
-        maven(Maven.jitpack)
+        maven(Maven.Url.jitpack)
     }
 }
 
