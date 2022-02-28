@@ -1,23 +1,21 @@
 plugins {
-    id(Android.Plugin.library)
+    id(Android.Plugin.application)
     id(Kotlin.Plugin.ID.android)
     id(Kotlin.Plugin.ID.kapt)
     id(Kotlin.Plugin.ID.parcelize)
-    id(Maven.Plugin.public)
 }
-
-group = "com.github.D10NG"
-version = "2.0"
 
 android {
     compileSdk = Project.compile_sdk
 
     defaultConfig {
+        applicationId = "com.d10ng.dlgpsutil"
         minSdk = Project.min_sdk
         targetSdk = Project.target_sdk
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,10 +35,11 @@ android {
 
 dependencies {
 
-    implementation(Kotlin.stdlib(kotlin_ver))
-
     // Android
     implementation(AndroidX.core_ktx("1.7.0"))
+    implementation(AndroidX.appcompat("1.4.1"))
+    implementation(Android.Google.material("1.5.0"))
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
     // 单元测试（可选）
     testImplementation(Test.junit("4.13.2"))
@@ -51,18 +50,5 @@ dependencies {
     implementation(Kotlin.Coroutines.core(kotlin_coroutines_ver))
     implementation(Kotlin.Coroutines.android(kotlin_coroutines_ver))
 
-    // 经纬度工具
-    api(D10NG.DLLatLngUtil("1.3"))
-    // 高德定位
-    implementation("com.amap.api:location:latest.integration")
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create(Publish.release, MavenPublication::class) {
-                from(components.getByName(Publish.release))
-            }
-        }
-    }
+    implementation(project(":GpsLib"))
 }
