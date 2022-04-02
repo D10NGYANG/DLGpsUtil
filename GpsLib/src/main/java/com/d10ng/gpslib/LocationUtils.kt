@@ -8,8 +8,10 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
+import androidx.core.location.LocationManagerCompat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 object LocationUtils {
 
@@ -29,7 +31,7 @@ class ALocationListener : LocationListener {
         // 位置改变
         // 得到的是WGS84格式的定位数据
         LocationUtils.last = location
-        locationLive.tryEmit(location)
+        locationLive.update { location }
     }
 }
 
@@ -47,8 +49,7 @@ fun Context.startRequestLocation(
     minTimeMs: Long = 1000,
     minDistanceM: Float = 1f
 ): StateFlow<Location?>? {
-    val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-    if (locationManager == null) println("LocationManager = null")
+    val locationManager = getSystemService(LocationManager::class.java)
     if (ActivityCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -60,11 +61,13 @@ fun Context.startRequestLocation(
         return null
     }
     try {
-        val last = locationManager?.getLastKnownLocation(provider)
+        val last = locationManager.getLastKnownLocation(provider)
+            ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+            ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         if (last != null) {
-            listener.locationLive.tryEmit(last)
+            listener.locationLive.update { last }
         }
-        locationManager?.requestLocationUpdates(
+        locationManager.requestLocationUpdates(
             provider,
             minTimeMs,
             minDistanceM,
@@ -89,12 +92,11 @@ fun Context.startRequestLocation(
 fun Context.getBestLocationProvider(
     accuracy: Int = Criteria.ACCURACY_FINE,
     isAltitudeRequired: Boolean = true,
-    isBearingRequired: Boolean = false,
-    isCostAllowed: Boolean = false,
-    powerRequirement: Int = Criteria.POWER_LOW
+    isBearingRequired: Boolean = true,
+    isCostAllowed: Boolean = true,
+    powerRequirement: Int = Criteria.NO_REQUIREMENT
 ): String? {
-    val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-    if (locationManager == null) println("LocationManager = null")
+    val locationManager = getSystemService(LocationManager::class.java)
     val criteria = Criteria().apply {
         this.accuracy = accuracy
         this.isAltitudeRequired = isAltitudeRequired
@@ -102,7 +104,7 @@ fun Context.getBestLocationProvider(
         this.isCostAllowed = isCostAllowed
         this.powerRequirement = powerRequirement
     }
-    return locationManager?.getBestProvider(criteria, true)
+    return locationManager.getBestProvider(criteria, true)
 }
 
 /**
@@ -110,11 +112,20 @@ fun Context.getBestLocationProvider(
  * @receiver Context
  */
 fun Context.stopRequestLocation(listener: ALocationListener) {
-    val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-    if (locationManager == null) println("LocationManager = null")
+    val locationManager = getSystemService(LocationManager::class.java)
     try {
-        locationManager?.removeUpdates(listener)
+        locationManager.removeUpdates(listener)
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+/**
+ * 检查定位是否可用
+ * @receiver Context
+ * @return Boolean
+ */
+fun Context.isLocationEnabled(): Boolean {
+    val locationManager = getSystemService(LocationManager::class.java)
+    return LocationManagerCompat.isLocationEnabled(locationManager)
 }

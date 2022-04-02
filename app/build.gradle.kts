@@ -50,5 +50,8 @@ dependencies {
     implementation(Kotlin.Coroutines.core(kotlin_coroutines_ver))
     implementation(Kotlin.Coroutines.android(kotlin_coroutines_ver))
 
+    // 时间
+    implementation(D10NG.DLDateUtil())
+
     implementation(project(":GpsLib"))
 }
