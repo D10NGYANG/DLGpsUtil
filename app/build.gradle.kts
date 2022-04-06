@@ -59,5 +59,9 @@ dependencies {
     implementation(D10NG.DLDateUtil())
     // 日期工具兼容Android8.0以下设备
     coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
+
+
     implementation(project(":library"))
+    // 高德定位
+    implementation("com.amap.api:location:latest.integration")
 }

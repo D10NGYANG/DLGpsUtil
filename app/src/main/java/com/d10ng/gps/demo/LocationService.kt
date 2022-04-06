@@ -1,4 +1,4 @@
-package com.d10ng.gps
+package com.d10ng.gps.demo
 
 import android.Manifest
 import android.app.*
@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import com.d10ng.datelib.toDateStr
+import com.d10ng.gps.isLocationEnabled
 
 class LocationService: Service() {
 

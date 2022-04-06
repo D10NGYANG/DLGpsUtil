@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.d10ng.gps">
+    package="com.d10ng.gps.demo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -9,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DLGpsUtil">
-        <activity android:name="com.d10ng.gps.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +28,16 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.d10ng.gps.LocationService"
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7797a16c8b6ec95868b6d0e647dafc78">
+        </meta-data>
+
+        <!--定位服务-->
+        <service android:name="com.amap.api.location.APSService"
+            android:foregroundServiceType="location"/>
+
+        <service android:name=".LocationService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location"/>
