@@ -9,13 +9,17 @@ android {
     compileSdk = Project.compile_sdk
 
     defaultConfig {
-        applicationId = "com.d10ng.dlgpsutil"
+        applicationId = "com.d10ng.gps.demo"
         minSdk = Project.min_sdk
         targetSdk = Project.target_sdk
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -25,6 +29,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -52,6 +57,7 @@ dependencies {
 
     // 时间
     implementation(D10NG.DLDateUtil())
-
-    implementation(project(":GpsLib"))
+    // 日期工具兼容Android8.0以下设备
+    coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
+    implementation(project(":library"))
 }

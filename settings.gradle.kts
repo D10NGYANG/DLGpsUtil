@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DLGpsUtil"
 include("app")
-include("GpsLib")
+include("library")
