@@ -1,15 +1,19 @@
+val bds100MavenUsername: String by project
+val bds100MavenPassword: String by project
+
 plugins {
-    id(Android.Plugin.library)
-    id(Kotlin.Plugin.ID.android)
-    id(Kotlin.Plugin.ID.kapt)
-    id(Kotlin.Plugin.ID.parcelize)
-    id(Maven.Plugin.public)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("maven-publish")
 }
 
-group = "com.github.D10NG"
-version = "2.1"
+group = "com.github.D10NGYANG"
+version = "2.2.0"
 
 android {
+    namespace = "com.d10ng.gps"
     compileSdk = Project.compile_sdk
 
     defaultConfig {
@@ -37,22 +41,20 @@ android {
 
 dependencies {
 
-    implementation(Kotlin.stdlib(kotlin_ver))
-
     // Android
-    implementation(AndroidX.core_ktx("1.7.0"))
+    implementation("androidx.core:core-ktx:1.9.0")
 
     // 单元测试（可选）
-    testImplementation(Test.junit("4.13.2"))
-    androidTestImplementation(AndroidX.Test.junit("1.1.3"))
-    androidTestImplementation(AndroidX.Test.espresso_core("3.4.0"))
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     // Coroutines
-    implementation(Kotlin.Coroutines.core(kotlin_coroutines_ver))
-    implementation(Kotlin.Coroutines.android(kotlin_coroutines_ver))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 经纬度工具
-    api(D10NG.DLLatLngUtil("1.3"))
+    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.3")
     // 高德定位
     implementation("com.amap.api:location:latest.integration")
 }
@@ -60,8 +62,21 @@ dependencies {
 afterEvaluate {
     publishing {
         publications {
-            create(Publish.release, MavenPublication::class) {
-                from(components.getByName(Publish.release))
+            create("release", MavenPublication::class) {
+                artifactId = "DLGpsUtil"
+                from(components.getByName("release"))
+            }
+        }
+        repositories {
+            maven {
+                url = uri("/Users/d10ng/project/kotlin/maven-repo/repository")
+            }
+            maven {
+                credentials {
+                    username = bds100MavenUsername
+                    password = bds100MavenPassword
+                }
+                setUrl("https://nexus.bds100.com/repository/maven-releases/")
             }
         }
     }

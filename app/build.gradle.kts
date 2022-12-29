@@ -1,11 +1,12 @@
 plugins {
-    id(Android.Plugin.application)
-    id(Kotlin.Plugin.ID.android)
-    id(Kotlin.Plugin.ID.kapt)
-    id(Kotlin.Plugin.ID.parcelize)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
+    namespace = "com.d10ng.gps.demo"
     compileSdk = Project.compile_sdk
 
     defaultConfig {
@@ -16,7 +17,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -41,24 +41,24 @@ android {
 dependencies {
 
     // Android
-    implementation(AndroidX.core_ktx("1.7.0"))
-    implementation(AndroidX.appcompat("1.4.1"))
-    implementation(Android.Google.material("1.5.0"))
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // 单元测试（可选）
-    testImplementation(Test.junit("4.13.2"))
-    androidTestImplementation(AndroidX.Test.junit("1.1.3"))
-    androidTestImplementation(AndroidX.Test.espresso_core("3.4.0"))
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     // Coroutines
-    implementation(Kotlin.Coroutines.core(kotlin_coroutines_ver))
-    implementation(Kotlin.Coroutines.android(kotlin_coroutines_ver))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
-    // 时间
-    implementation(D10NG.DLDateUtil())
+    // 日期工具
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.7.1")
     // 日期工具兼容Android8.0以下设备
-    coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
 
 
     implementation(project(":library"))

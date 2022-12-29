@@ -1,6 +1,5 @@
 # DLGpsUtil
 Android原生定位；高德定位；坐标系转换；格式转换；
-[![](https://jitpack.io/v/D10NGYANG/DLGpsUtil.svg)](https://jitpack.io/#D10NGYANG/DLGpsUtil)
 
 # 使用
 1 Add it in your root build.gradle at the end of repositories:
@@ -8,7 +7,7 @@ Android原生定位；高德定位；坐标系转换；格式转换；
 allprojects {
   repositories {
     ...
-    maven { url 'https://jitpack.io' }
+    maven("https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository")
   }
 }
 ```
@@ -16,7 +15,7 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-    implementation 'com.github.D10NGYANG:DLGpsUtil:2.0'
+    implementation 'com.github.D10NGYANG:DLGpsUtil:2.2.0'
     // 如果需要高德定位
     implementation 'com.amap.api:location:latest.integration'
 }
