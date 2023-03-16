@@ -16,6 +16,8 @@ allprojects {
 ```kotlin
 dependencies {
     implementation("com.github.D10NGYANG:DLGpsUtil:2.2.1")
+    // 经纬度工具
+    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.5.1")
     // 可选 - 高德定位
     implementation("com.amap.api:location:latest.integration")
 }
