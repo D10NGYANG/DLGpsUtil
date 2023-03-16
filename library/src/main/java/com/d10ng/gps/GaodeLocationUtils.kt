@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
  */
 class GaodeLocationUtils(context: Context) {
 
-    val locationLive: MutableStateFlow<AMapLocation?> = MutableStateFlow(null)
+    val locationFlow: MutableStateFlow<AMapLocation?> = MutableStateFlow(null)
 
     private lateinit var locationClient: AMapLocationClient
 
@@ -63,7 +63,7 @@ class GaodeLocationUtils(context: Context) {
                 this.latitude = latlng.latitude
                 this.longitude = latlng.longitude
             }
-            locationLive.update { map }
+            locationFlow.update { map }
         }
     }
 

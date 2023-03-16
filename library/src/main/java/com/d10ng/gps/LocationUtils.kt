@@ -25,13 +25,13 @@ object LocationUtils {
  */
 class ALocationListener : LocationListener {
 
-    val locationLive: MutableStateFlow<Location?> = MutableStateFlow(LocationUtils.last)
+    val locationFlow: MutableStateFlow<Location?> = MutableStateFlow(LocationUtils.last)
 
     override fun onLocationChanged(location: Location) {
         // 位置改变
         // 得到的是WGS84格式的定位数据
         LocationUtils.last = location
-        locationLive.update { location }
+        locationFlow.update { location }
     }
 }
 
@@ -65,7 +65,7 @@ fun Context.startRequestLocation(
             ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
             ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         if (last != null) {
-            listener.locationLive.update { last }
+            listener.locationFlow.update { last }
         }
         locationManager.requestLocationUpdates(
             provider,
@@ -76,7 +76,7 @@ fun Context.startRequestLocation(
     } catch (e: Exception) {
         e.printStackTrace()
     }
-    return listener.locationLive
+    return listener.locationFlow
 }
 
 /**

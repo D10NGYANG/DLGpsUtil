@@ -10,6 +10,14 @@ import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * 获取高德地图逆地理编码
+ * @receiver DLatLng
+ * @param type CoordinateSystemType
+ * @param key String
+ * @param onError Function1<String, Unit>
+ * @return Regeocode?
+ */
 suspend fun DLatLng.getGaodeLocation(
     type: CoordinateSystemType,
     key: String,
