@@ -15,9 +15,9 @@ allprojects {
 2 Add the dependency
 ```kotlin
 dependencies {
-    implementation 'com.github.D10NGYANG:DLGpsUtil:2.2.0'
-    // 如果需要高德定位
-    implementation 'com.amap.api:location:latest.integration'
+    implementation("com.github.D10NGYANG:DLGpsUtil:2.2.1")
+    // 可选 - 高德定位
+    implementation("com.amap.api:location:latest.integration")
 }
 ```
 3 混淆
@@ -46,3 +46,36 @@ dependencies {
 
 4 高德接入
 [高德定位SDK-入门指南](https://lbs.amap.com/api/android-location-sdk/gettingstarted)
+
+## 原生定位
+```kotlin
+/**
+ * 检查定位是否可用
+ * @receiver Context
+ * @return Boolean
+ */
+fun Context.isLocationEnabled(): Boolean
+```
+```kotlin
+/**
+ * 请求定位信息
+ * @receiver Context
+ * @param provider String 定位数据的提供器，默认仅GPS
+ * @param minTimeMs Long 最小定位时间（毫秒），默认1000
+ * @param minDistanceM Float 最小定位位移（米），默认1
+ * @return MutableLiveData<Location?>?
+ */
+fun Context.startRequestLocation(
+    listener: ALocationListener,
+    provider: String = getBestLocationProvider()?: LocationManager.GPS_PROVIDER,
+    minTimeMs: Long = 1000,
+    minDistanceM: Float = 1f
+): StateFlow<Location?>?
+```
+```kotlin
+/**
+ * 取消定位请求
+ * @receiver Context
+ */
+fun Context.stopRequestLocation(listener: ALocationListener)
+```
