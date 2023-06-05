@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.3.0"
+version = "2.3.1"
 
 android {
     namespace = "com.d10ng.gps"
@@ -33,9 +33,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     kotlin {
         jvmToolchain(8)
     }
@@ -49,7 +46,7 @@ android {
 dependencies {
 
     // Android
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -61,7 +58,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 经纬度工具
-    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.6.8")
+    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.7.0")
     // 高德定位
     implementation("com.amap.api:location:latest.integration")
 }
