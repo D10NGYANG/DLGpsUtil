@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.3.1"
+version = "2.3.2"
 
 android {
     namespace = "com.d10ng.gps"
@@ -58,7 +58,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 经纬度工具
-    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.7.0")
+    implementation("com.github.D10NGYANG:DLLatLngUtil-jvm:1.7.1")
     // 高德定位
     implementation("com.amap.api:location:latest.integration")
 }
