@@ -5,5 +5,5 @@ object Project {
 }
 
 const val android_build_ver = "8.0.2"
-const val kotlin_ver = "1.8.21"
-const val kotlin_coroutines_ver = "1.7.1"
+const val kotlin_ver = "1.8.22"
+const val kotlin_coroutines_ver = "1.7.2"
