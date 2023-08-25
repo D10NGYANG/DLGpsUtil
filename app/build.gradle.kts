@@ -55,7 +55,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 日期工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.4")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
     // 日期工具兼容Android8.0以下设备
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
