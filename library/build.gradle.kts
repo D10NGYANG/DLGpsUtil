@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.3.5"
+version = "2.3.6"
 
 android {
     namespace = "com.d10ng.gps"
